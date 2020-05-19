@@ -73,7 +73,6 @@
 
   const moveDown = ({ shape }) => {
     currentPosition += GRID_WIDTH;
-    console.log(isAtBottom(shape)(currentPosition));
     if (isAtBottom(shape)(currentPosition)) freeze();
   };
 
