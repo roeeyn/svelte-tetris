@@ -51,12 +51,12 @@
   };
 
   const undraw = ({ shape }) => {
-    if (!isAtBottom(shape, currentPosition))
+    if (!isAtBottom(shape)(currentPosition))
       shape.forEach(index => (squares[index + currentPosition].color = "blue"));
   };
 
   const moveRight = ({ shape }) => {
-    if (!isAtRightEdge(shape, currentPosition)) currentPosition += 1;
+    if (!isAtRightEdge(shape)(currentPosition)(squares)) currentPosition += 1;
     // if (tetrimino.some(index => squares[cPosition + index].classList.contains('block2'))) {
     //   currentPosition -= 1
     // } validacion de que no hay otro bloque
@@ -64,7 +64,7 @@
   };
 
   const moveLeft = ({ shape }) => {
-    if (!isAtLeftEdge(shape, currentPosition)) currentPosition -= 1;
+    if (!isAtLeftEdge(shape)(currentPosition)(squares)) currentPosition -= 1;
     // if (tetrimino.some(index => squares[cPosition + index].classList.contains('block2'))) {
     //   currentPosition += 1
     // } validacion de que no hay otro bloque
@@ -72,16 +72,17 @@
   };
 
   const moveDown = ({ shape }) => {
-    if (!isAtBottom(shape, currentPosition)) currentPosition += GRID_WIDTH;
-    else freeze();
+    currentPosition += GRID_WIDTH;
+    console.log(isAtBottom(shape)(currentPosition));
+    if (isAtBottom(shape)(currentPosition)) freeze();
   };
 
   const rotate = ({ shape, leftS2R, rightS2R }) => {
     // Making both calculations is not as heavy as it |
     // may sound because the size is fixed to 4
-    if (isAtLeftEdge(shape, currentPosition))
+    if (isAtLeftEdge(shape)(currentPosition)(squares))
       currentPosition = currentPosition + leftS2R;
-    else if (isAtRightEdge(shape, currentPosition))
+    else if (isAtRightEdge(shape)(currentPosition)(squares))
       currentPosition = currentPosition - rightS2R;
 
     blockRotation.rotate();
