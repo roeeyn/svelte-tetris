@@ -13,12 +13,12 @@ export const isAtRightEdge = tetriminoShape => currentPosition => gridSquares =>
   tetriminoShape.some(
     index =>
       (currentPosition + index) % GRID_WIDTH === GRID_WIDTH - 1 ||
-      gridSquares[currentPosition + index + 1].color != "blue"
+      !gridSquares[currentPosition + index + 1].isEmpty
   );
 
 export const isAtLeftEdge = tetriminoShape => currentPosition => gridSquares =>
   tetriminoShape.some(
     index =>
       (currentPosition + index) % GRID_WIDTH === 0 ||
-      gridSquares[currentPosition + index - 1].color != "blue"
+      !gridSquares[currentPosition + index - 1].isEmpty
   );
