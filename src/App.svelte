@@ -30,16 +30,6 @@
       undraw(tTetrimino[actualBlockRotation]) || blockRotation.rotate();
   }
 
-  // function rotateBlock(){
-  // 	undraw(tTetrimino)
-  // 	blockRotation.rotate()
-  // }
-
-  //assign functions to keycodes
-
-  // // the classical behavior is to speed up the block if down button is kept pressed so doing that
-  // document.addEventListener("keydown", control);
-
   $: draw(tTetrimino[actualBlockRotation]);
 
   onDestroy(() => unsubSquares && unsubBlockRotation);
