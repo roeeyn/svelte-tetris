@@ -70,7 +70,11 @@
     // may sound because the size is fixed to 4
     const isValid = tTetrimino[
       safelyIncRotation(actualBlockRotation) // see next position
-    ].shape.every(index => squares[currentPosition + index].isEmpty);
+    ].shape.every(
+      index =>
+        currentPosition + index <= GRID_SIZE &&
+        squares[currentPosition + index].isEmpty
+    );
 
     if (isValid) {
       if (isAtLeftEdge(shape)(currentPosition)(squares))
