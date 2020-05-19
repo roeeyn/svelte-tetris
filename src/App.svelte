@@ -1,11 +1,7 @@
 <script>
   import { onDestroy } from "svelte";
   import { gridSquares, blockRotation } from "./stores/mainStore.js";
-  import { GRID_WIDTH, DOWN_KEY_CODE } from "./const.js";
-
-  function control(e) {
-    if (e.keyCode === DOWN_KEY_CODE) blockRotation.rotate();
-  }
+  import { GRID_WIDTH, DOWN_KEY_CODE, tTetrimino } from "./const.js";
 
   let squares;
   let actualBlockRotation;
@@ -15,26 +11,36 @@
     (value) => (actualBlockRotation = value)
   );
 
-  function draw(tetrimino) {
+  const draw = (tetrimino) => {
     const currentPosition = 4;
     tetrimino.forEach(
       (index) => (squares[index + currentPosition].color = "red")
     );
+  };
+
+  const undraw = (tetrimino) => {
+    const currentPosition = 4;
+    tetrimino.forEach((index) => {
+      squares[index + currentPosition].color = "blue";
+    });
+  };
+
+  function control(e) {
+    if (e.keyCode === DOWN_KEY_CODE)
+      undraw(tTetrimino[actualBlockRotation]) || blockRotation.rotate();
   }
 
-  const tTetromino = [
-    [1, GRID_WIDTH, GRID_WIDTH + 1, GRID_WIDTH + 2],
-    [1, GRID_WIDTH + 1, GRID_WIDTH + 2, GRID_WIDTH * 2 + 1],
-    [GRID_WIDTH, GRID_WIDTH + 1, GRID_WIDTH + 2, GRID_WIDTH * 2 + 1],
-    [1, GRID_WIDTH, GRID_WIDTH + 1, GRID_WIDTH * 2 + 1],
-  ];
+  // function rotateBlock(){
+  // 	undraw(tTetrimino)
+  // 	blockRotation.rotate()
+  // }
 
   //assign functions to keycodes
 
   // // the classical behavior is to speed up the block if down button is kept pressed so doing that
   // document.addEventListener("keydown", control);
 
-  $: draw(tTetromino[actualBlockRotation]);
+  $: draw(tTetrimino[actualBlockRotation]);
 
   onDestroy(() => unsubSquares && unsubBlockRotation);
 </script>

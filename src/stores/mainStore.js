@@ -6,10 +6,7 @@ const createBlockRotation = () => {
 
   return {
     subscribe,
-    rotate: () => {
-      console.log("hey");
-      update(n => (n === 3 ? 0 : n + 1));
-    },
+    rotate: () => update(n => (n === 3 ? 0 : n + 1)),
   };
 };
 
