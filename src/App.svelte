@@ -1,13 +1,19 @@
 <script>
   import { onDestroy } from "svelte";
-  import { gridSquares } from "./stores/mainStore.js";
-  import { GRID_WIDTH } from "./const.js";
+  import { gridSquares, blockRotation } from "./stores/mainStore.js";
+  import { GRID_WIDTH, DOWN_KEY_CODE } from "./const.js";
+
+  function control(e) {
+    if (e.keyCode === DOWN_KEY_CODE) blockRotation.rotate();
+  }
 
   let squares;
+  let actualBlockRotation;
 
-  const unsubscribe = gridSquares.subscribe((value) => (squares = value));
-
-  console.log(gridSquares);
+  const unsubSquares = gridSquares.subscribe((value) => (squares = value));
+  const unsubBlockRotation = blockRotation.subscribe(
+    (value) => (actualBlockRotation = value)
+  );
 
   function draw(tetrimino) {
     const currentPosition = 4;
@@ -23,9 +29,14 @@
     [1, GRID_WIDTH, GRID_WIDTH + 1, GRID_WIDTH * 2 + 1],
   ];
 
-  draw(tTetromino[0]);
+  //assign functions to keycodes
 
-  onDestroy(unsubscribe);
+  // // the classical behavior is to speed up the block if down button is kept pressed so doing that
+  // document.addEventListener("keydown", control);
+
+  $: draw(tTetromino[actualBlockRotation]);
+
+  onDestroy(() => unsubSquares && unsubBlockRotation);
 </script>
 
 <style>
@@ -48,6 +59,8 @@
     /* background: blue; */
   }
 </style>
+
+<svelte:window on:keydown={control} />
 
 <main>
   <section>
