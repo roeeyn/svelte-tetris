@@ -5,6 +5,7 @@ export const GRID_SIZE = GRID_HEIGHT * GRID_WIDTH;
 
 // Key Codes
 export const DOWN_KEY_CODE = 38;
+export const RIGHT_KEY_CODE = 39;
 
 // Tetriminos
 export const tTetrimino = [
