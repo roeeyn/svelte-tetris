@@ -48,28 +48,21 @@
     shape.forEach(index => (squares[index + currentPosition].color = "red"));
 
   const undraw = ({ shape }) => {
-    if (!isAtBottom(shape)(currentPosition)(squares))
+    if (!isAtBottom(shape)(currentPosition)(squares) || currentPosition >= 10)
       shape.forEach(index => (squares[index + currentPosition].color = "blue"));
   };
 
   const moveRight = ({ shape }) => {
     if (!isAtRightEdge(shape)(currentPosition)(squares)) currentPosition += 1;
-    // if (tetrimino.some(index => squares[cPosition + index].classList.contains('block2'))) {
-    //   currentPosition -= 1
-    // } validacion de que no hay otro bloque
-    // draw(tetrimino);
   };
 
   const moveLeft = ({ shape }) => {
     if (!isAtLeftEdge(shape)(currentPosition)(squares)) currentPosition -= 1;
-    // if (tetrimino.some(index => squares[cPosition + index].classList.contains('block2'))) {
-    //   currentPosition += 1
-    // } validacion de que no hay otro bloque
-    // draw(tetrimino);
   };
 
   const moveDown = ({ shape }) => {
-    currentPosition += GRID_WIDTH;
+    if (isAtBottom(shape)(currentPosition)(squares)) freeze({ shape });
+    else currentPosition += GRID_WIDTH;
   };
 
   const rotate = ({ shape, leftS2R, rightS2R }) => {
@@ -84,20 +77,18 @@
   };
 
   const freeze = ({ shape }) => {
-    if (isAtBottom(shape)(currentPosition)(squares)) {
-      shape.forEach(
-        index => (squares[index + currentPosition].isEmpty = false)
-      );
-      currentPosition = GRID_WIDTH / 2 - 1;
-      draw(tTetrimino[actualBlockRotation]);
-    }
+    shape.forEach(index => {
+      squares[index + currentPosition].isEmpty = false;
+      squares[index + currentPosition].color = "green";
+    });
+    currentPosition = GRID_WIDTH / 2 - 1;
+    draw(tTetrimino[actualBlockRotation]);
   };
 
   $: {
     undraw(tTetrimino[actualBlockRotation]);
     moveFn(tTetrimino[actualBlockRotation]);
     draw(tTetrimino[actualBlockRotation]);
-    freeze(tTetrimino[actualBlockRotation]);
   }
 
   onDestroy(
