@@ -5,7 +5,7 @@
     blockRotation,
     keyAction,
     currentBlockPosition,
-  } from "./stores/mainStore.js";
+  } from "./mainStore.js";
   import {
     GRID_WIDTH,
     GRID_SIZE,
@@ -16,8 +16,10 @@
     tTetrimino,
   } from "./const.js";
 
+  import { safelyIncRotation } from "./utils.js";
+
   function control(e) {
-    if (e.keyCode === UP_KEY_CODE) moveFn = blockRotation.rotate;
+    if (e.keyCode === UP_KEY_CODE) moveFn = rotate;
     else if (e.keyCode === RIGHT_KEY_CODE) moveFn = moveRight;
     else if (e.keyCode === LEFT_KEY_CODE) moveFn = moveLeft;
     else if (e.keyCode === DOWN_KEY_CODE) moveFn = moveDown;
@@ -28,49 +30,49 @@
   let currentPosition;
   let moveFn;
 
-  const unsubSquares = gridSquares.subscribe((value) => (squares = value));
+  const unsubSquares = gridSquares.subscribe(value => (squares = value));
   const unsubBlockRotation = blockRotation.subscribe(
-    (value) => (actualBlockRotation = value)
+    value => (actualBlockRotation = value)
   );
   const unsubPosition = currentBlockPosition.subscribe(
-    (value) => (currentPosition = value)
+    value => (currentPosition = value)
   );
-  const unsubMoveFn = keyAction.subscribe((value) => (moveFn = value));
+  const unsubMoveFn = keyAction.subscribe(value => (moveFn = value));
 
-  const draw = (tetrimino) => {
-    tetrimino.forEach(
-      (index) => (squares[index + currentPosition].color = "red")
+  const draw = tetrimino => {
+    tetrimino.shape.forEach(
+      index => (squares[index + currentPosition].color = "red")
     );
   };
 
-  const undraw = (tetrimino) => {
-    tetrimino.forEach((index) => {
+  const undraw = tetrimino => {
+    tetrimino.shape.forEach(index => {
       squares[index + currentPosition].color = "blue";
     });
   };
 
-  const moveRight = (tetrimino) => {
-    const isAtRightEdge = tetrimino.some(
-      (index) => (currentPosition + index) % GRID_WIDTH === GRID_WIDTH - 1
+  const moveRight = tetrimino => {
+    const isAtRightEdge = tetrimino.shape.some(
+      index => (currentPosition + index) % GRID_WIDTH === GRID_WIDTH - 1
     );
 
     if (!isAtRightEdge) currentPosition += 1;
     // if (tetrimino.some(index => squares[cPosition + index].classList.contains('block2'))) {
     //   currentPosition -= 1
     // } validacion de que no hay otro bloque
-    draw(tetrimino);
+    // draw(tetrimino);
   };
 
-  const moveDown = (tetrimino) => {
-    const isAtBorder = tetrimino.some(
-      (index) => currentPosition + index + GRID_WIDTH > GRID_SIZE
+  const moveDown = tetrimino => {
+    const isAtBorder = tetrimino.shape.some(
+      index => currentPosition + index + GRID_WIDTH > GRID_SIZE
     );
     if (!isAtBorder) currentPosition += GRID_WIDTH;
   };
 
-  const moveLeft = (tetrimino) => {
-    const isAtLeftEdge = tetrimino.some(
-      (index) => (currentPosition + index) % GRID_WIDTH === 0
+  const moveLeft = tetrimino => {
+    const isAtLeftEdge = tetrimino.shape.some(
+      index => (currentPosition + index) % GRID_WIDTH === 0
     );
 
     if (!isAtLeftEdge) currentPosition -= 1;
@@ -78,6 +80,22 @@
     //   currentPosition += 1
     // } validacion de que no hay otro bloque
     // draw(tetrimino);
+  };
+
+  const rotate = tetrimino => {
+    // Making both calculations is not as heavy as it |
+    // may sound because the size is fixed to 4
+    const isAtLeftEdge = tetrimino.shape.some(
+      index => (currentPosition + index) % GRID_WIDTH === 0
+    );
+    const isAtRightEdge = tetrimino.shape.some(
+      index => (currentPosition + index) % GRID_WIDTH === GRID_WIDTH - 1
+    );
+    if (isAtLeftEdge) currentPosition = currentPosition + tetrimino.leftS2R;
+    else if (isAtRightEdge)
+      currentPosition = currentPosition - tetrimino.rightS2R;
+
+    blockRotation.rotate();
   };
 
   $: {

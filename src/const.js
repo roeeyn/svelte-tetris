@@ -10,9 +10,27 @@ export const RIGHT_KEY_CODE = 39;
 export const DOWN_KEY_CODE = 40;
 
 // Tetriminos
+//   S2R - Space to rotate, is how much space it needs in order to rotate \
+//   when it is in each border
 export const tTetrimino = [
-  [1, GRID_WIDTH, GRID_WIDTH + 1, GRID_WIDTH + 2],
-  [1, GRID_WIDTH + 1, GRID_WIDTH + 2, GRID_WIDTH * 2 + 1],
-  [GRID_WIDTH, GRID_WIDTH + 1, GRID_WIDTH + 2, GRID_WIDTH * 2 + 1],
-  [1, GRID_WIDTH, GRID_WIDTH + 1, GRID_WIDTH * 2 + 1],
+  {
+    shape: [1, GRID_WIDTH, GRID_WIDTH + 1, GRID_WIDTH + 2],
+    rightS2R: 0,
+    leftS2R: 0,
+  },
+  {
+    shape: [1, GRID_WIDTH + 1, GRID_WIDTH + 2, GRID_WIDTH * 2 + 1],
+    rightS2R: 0,
+    leftS2R: 1,
+  },
+  {
+    shape: [GRID_WIDTH, GRID_WIDTH + 1, GRID_WIDTH + 2, GRID_WIDTH * 2 + 1],
+    rightS2R: 0,
+    leftS2R: 0,
+  },
+  {
+    shape: [1, GRID_WIDTH, GRID_WIDTH + 1, GRID_WIDTH * 2 + 1],
+    rightS2R: 1,
+    leftS2R: 0,
+  },
 ];
