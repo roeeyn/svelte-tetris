@@ -44,14 +44,11 @@
   );
   const unsubMoveFn = keyAction.subscribe(value => (moveFn = value));
 
-  const draw = tetrimino => {
-    tetrimino.shape.forEach(
-      index => (squares[index + currentPosition].color = "red")
-    );
-  };
+  const draw = ({ shape }) =>
+    shape.forEach(index => (squares[index + currentPosition].color = "red"));
 
   const undraw = ({ shape }) => {
-    if (!isAtBottom(shape)(currentPosition))
+    if (!isAtBottom(shape)(currentPosition)(squares))
       shape.forEach(index => (squares[index + currentPosition].color = "blue"));
   };
 
@@ -73,7 +70,6 @@
 
   const moveDown = ({ shape }) => {
     currentPosition += GRID_WIDTH;
-    if (isAtBottom(shape)(currentPosition)) freeze();
   };
 
   const rotate = ({ shape, leftS2R, rightS2R }) => {
@@ -87,14 +83,21 @@
     blockRotation.rotate();
   };
 
-  const freeze = () => {
-    currentPosition = GRID_WIDTH / 2;
+  const freeze = ({ shape }) => {
+    if (isAtBottom(shape)(currentPosition)(squares)) {
+      shape.forEach(
+        index => (squares[index + currentPosition].isEmpty = false)
+      );
+      currentPosition = GRID_WIDTH / 2 - 1;
+      draw(tTetrimino[actualBlockRotation]);
+    }
   };
 
   $: {
     undraw(tTetrimino[actualBlockRotation]);
     moveFn(tTetrimino[actualBlockRotation]);
     draw(tTetrimino[actualBlockRotation]);
+    freeze(tTetrimino[actualBlockRotation]);
   }
 
   onDestroy(

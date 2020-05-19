@@ -25,5 +25,6 @@ export const gridSquares = writable(
   Array.from({ length: GRID_SIZE }, (_, i) => ({
     index: i,
     color: "blue",
+    isEmpty: true,
   }))
 );
