@@ -1,14 +1,13 @@
 <script>
-  const GRID_WIDTH = 10;
-  const GRID_HEIGHT = 20;
-  const GRID_SIZE = GRID_HEIGHT * GRID_WIDTH;
+  import { onDestroy } from "svelte";
+  import { gridSquares } from "./stores/mainStore.js";
+  import { GRID_WIDTH } from "./const.js";
 
-  const squares = Array.from({ length: GRID_SIZE }, (_, i) => ({
-    index: i,
-    color: "blue",
-  }));
+  let squares;
 
-  console.log(squares);
+  const unsubscribe = gridSquares.subscribe((value) => (squares = value));
+
+  console.log(gridSquares);
 
   function draw(tetrimino) {
     const currentPosition = 4;
@@ -25,6 +24,8 @@
   ];
 
   draw(tTetromino[0]);
+
+  onDestroy(unsubscribe);
 </script>
 
 <style>
