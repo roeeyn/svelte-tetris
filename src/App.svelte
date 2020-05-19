@@ -68,12 +68,18 @@
   const rotate = ({ shape, leftS2R, rightS2R }) => {
     // Making both calculations is not as heavy as it |
     // may sound because the size is fixed to 4
-    if (isAtLeftEdge(shape)(currentPosition)(squares))
-      currentPosition = currentPosition + leftS2R;
-    else if (isAtRightEdge(shape)(currentPosition)(squares))
-      currentPosition = currentPosition - rightS2R;
+    const isValid = tTetrimino[
+      safelyIncRotation(actualBlockRotation) // see next position
+    ].shape.every(index => squares[currentPosition + index].isEmpty);
 
-    blockRotation.rotate();
+    if (isValid) {
+      if (isAtLeftEdge(shape)(currentPosition)(squares))
+        currentPosition = currentPosition + leftS2R;
+      else if (isAtRightEdge(shape)(currentPosition)(squares))
+        currentPosition = currentPosition - rightS2R;
+
+      blockRotation.rotate();
+    }
   };
 
   const freeze = ({ shape }) => {
