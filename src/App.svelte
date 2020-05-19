@@ -16,7 +16,12 @@
     tTetrimino,
   } from "./const.js";
 
-  import { safelyIncRotation } from "./utils.js";
+  import {
+    safelyIncRotation,
+    isAtBottom,
+    isAtRightEdge,
+    isAtLeftEdge,
+  } from "./utils.js";
 
   function control(e) {
     if (e.keyCode === UP_KEY_CODE) moveFn = rotate;
@@ -45,57 +50,45 @@
     );
   };
 
-  const undraw = tetrimino => {
-    tetrimino.shape.forEach(index => {
-      squares[index + currentPosition].color = "blue";
-    });
+  const undraw = ({ shape }) => {
+    if (!isAtBottom(shape, currentPosition))
+      shape.forEach(index => (squares[index + currentPosition].color = "blue"));
   };
 
-  const moveRight = tetrimino => {
-    const isAtRightEdge = tetrimino.shape.some(
-      index => (currentPosition + index) % GRID_WIDTH === GRID_WIDTH - 1
-    );
-
-    if (!isAtRightEdge) currentPosition += 1;
+  const moveRight = ({ shape }) => {
+    if (!isAtRightEdge(shape, currentPosition)) currentPosition += 1;
     // if (tetrimino.some(index => squares[cPosition + index].classList.contains('block2'))) {
     //   currentPosition -= 1
     // } validacion de que no hay otro bloque
     // draw(tetrimino);
   };
 
-  const moveDown = tetrimino => {
-    const isAtBorder = tetrimino.shape.some(
-      index => currentPosition + index + GRID_WIDTH > GRID_SIZE
-    );
-    if (!isAtBorder) currentPosition += GRID_WIDTH;
-  };
-
-  const moveLeft = tetrimino => {
-    const isAtLeftEdge = tetrimino.shape.some(
-      index => (currentPosition + index) % GRID_WIDTH === 0
-    );
-
-    if (!isAtLeftEdge) currentPosition -= 1;
+  const moveLeft = ({ shape }) => {
+    if (!isAtLeftEdge(shape, currentPosition)) currentPosition -= 1;
     // if (tetrimino.some(index => squares[cPosition + index].classList.contains('block2'))) {
     //   currentPosition += 1
     // } validacion de que no hay otro bloque
     // draw(tetrimino);
   };
 
-  const rotate = tetrimino => {
+  const moveDown = ({ shape }) => {
+    if (!isAtBottom(shape, currentPosition)) currentPosition += GRID_WIDTH;
+    else freeze();
+  };
+
+  const rotate = ({ shape, leftS2R, rightS2R }) => {
     // Making both calculations is not as heavy as it |
     // may sound because the size is fixed to 4
-    const isAtLeftEdge = tetrimino.shape.some(
-      index => (currentPosition + index) % GRID_WIDTH === 0
-    );
-    const isAtRightEdge = tetrimino.shape.some(
-      index => (currentPosition + index) % GRID_WIDTH === GRID_WIDTH - 1
-    );
-    if (isAtLeftEdge) currentPosition = currentPosition + tetrimino.leftS2R;
-    else if (isAtRightEdge)
-      currentPosition = currentPosition - tetrimino.rightS2R;
+    if (isAtLeftEdge(shape, currentPosition))
+      currentPosition = currentPosition + leftS2R;
+    else if (isAtRightEdge(shape, currentPosition))
+      currentPosition = currentPosition - rightS2R;
 
     blockRotation.rotate();
+  };
+
+  const freeze = () => {
+    currentPosition = GRID_WIDTH / 2;
   };
 
   $: {
