@@ -4,6 +4,7 @@ import {
   tTetrimino,
   lTetromino,
   reversedLTetromino,
+  zTetromino,
 } from "./const";
 
 export const safelyIncRotation = number => (number === 3 ? 0 : number + 1);
@@ -37,7 +38,8 @@ export const getRandomTetrimino = () => {
   const tetriminos = [
     //tTetrimino,
     //lTetromino,
-    reversedLTetromino,
+    //reversedLTetromino,
+    zTetromino,
   ];
   return tetriminos[Math.floor(Math.random() * tetriminos.length)];
 };
