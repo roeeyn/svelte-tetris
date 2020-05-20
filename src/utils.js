@@ -5,6 +5,7 @@ import {
   lTetrimino,
   reversedLTetrimino,
   zTetrimino,
+  iTetrimino,
   reversedZTetrimino,
   oTetrimino,
 } from "./const";
@@ -43,7 +44,8 @@ export const getRandomTetrimino = () => {
     //reversedLTetromino,
     //zTetrimino,
     //reversedZTetrimino,
-    oTetrimino,
+    //oTetrimino,
+    iTetrimino,
   ];
   return tetriminos[Math.floor(Math.random() * tetriminos.length)];
 };

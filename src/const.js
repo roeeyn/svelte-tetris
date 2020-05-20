@@ -138,3 +138,26 @@ export const oTetrimino = [
   { shape: [0, 1, GRID_WIDTH, GRID_WIDTH + 1], rightS2R: 0, leftS2R: 0 },
   { shape: [0, 1, GRID_WIDTH, GRID_WIDTH + 1], rightS2R: 0, leftS2R: 0 },
 ];
+
+export const iTetrimino = [
+  {
+    shape: [1, GRID_WIDTH + 1, GRID_WIDTH * 2 + 1, GRID_WIDTH * 3 + 1],
+    leftS2R: 1,
+    rightS2R: 2,
+  },
+  {
+    shape: [GRID_WIDTH, GRID_WIDTH + 1, GRID_WIDTH + 2, GRID_WIDTH + 3],
+    leftS2R: 0,
+    rightS2R: 0,
+  },
+  {
+    shape: [1, GRID_WIDTH + 1, GRID_WIDTH * 2 + 1, GRID_WIDTH * 3 + 1],
+    leftS2R: 1,
+    rightS2R: 2,
+  },
+  {
+    shape: [GRID_WIDTH, GRID_WIDTH + 1, GRID_WIDTH + 2, GRID_WIDTH + 3],
+    leftS2R: 0,
+    rightS2R: 0,
+  },
+];
