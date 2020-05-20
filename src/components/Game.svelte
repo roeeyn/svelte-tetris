@@ -47,7 +47,6 @@
   let currentPosition;
   let moveFn;
   let actualTetrimino;
-  let actualDestroyedLines;
   let intervalTime = 750;
   let isPlaying;
 
@@ -57,7 +56,6 @@
     blockRotation.subscribe(value => (actualBlockRotation = value)),
     currentBlockPosition.subscribe(value => (currentPosition = value)),
     keyAction.subscribe(value => (moveFn = value)),
-    destroyedLines.subscribe(value => (actualDestroyedLines = value)),
     currentlyPlaying.subscribe(value => (isPlaying = value)),
   ];
 
@@ -135,8 +133,7 @@
     // and update score
     const [newSquares, newDestroyedLines] = destroyLines(squares);
     squares = newSquares;
-    actualDestroyedLines = actualDestroyedLines + newDestroyedLines;
-
+    destroyedLines.update(n => n + newDestroyedLines);
     // Create another tetrimino and restart position
     currentPosition = GRID_WIDTH / 2 - 1;
     actualTetrimino = getRandomTetrimino();
