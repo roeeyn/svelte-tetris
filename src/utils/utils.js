@@ -9,6 +9,7 @@ import {
   reversedZTetrimino,
   oTetrimino,
   GRID_HEIGHT,
+  EMPTY_SQUARE_COLOR,
 } from "../const";
 
 export const safelyIncRotation = number => (number === 3 ? 0 : number + 1);
@@ -82,7 +83,7 @@ export const destroyLines = gridSquares => {
           ? [
               accGridSquares.map((square, index) =>
                 index >= rowMinIndex && index <= rowMaxIndex
-                  ? { ...square, isEmpty: true, color: "blue" }
+                  ? { ...square, isEmpty: true, color: EMPTY_SQUARE_COLOR }
                   : square
               ),
               [...deletedRowsIndex, rowIndex],
@@ -104,7 +105,7 @@ export const destroyLines = gridSquares => {
     resultSquares = [
       // We fill deleted spaces with new squares at the beginning
       ...Array.from({ length: deletedRowsIndexes.length * GRID_WIDTH }, () => ({
-        color: "blue",
+        color: EMPTY_SQUARE_COLOR,
         isEmpty: true,
       })),
       ...squaresWithSpaces,

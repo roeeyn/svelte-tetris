@@ -1,5 +1,5 @@
 import { writable } from "svelte/store";
-import { GRID_SIZE, GRID_WIDTH } from "./const.js";
+import { GRID_SIZE, GRID_WIDTH, EMPTY_SQUARE_COLOR } from "./const.js";
 import { safelyIncRotation, getRandomTetrimino } from "./utils/utils.js";
 
 const createBlockRotation = () => {
@@ -27,7 +27,7 @@ export const destroyedLines = writable(0);
 
 export const gridSquares = writable(
   Array.from({ length: GRID_SIZE }, () => ({
-    color: "blue",
+    color: EMPTY_SQUARE_COLOR,
     isEmpty: true,
   }))
 );

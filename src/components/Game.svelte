@@ -16,6 +16,10 @@
     UP_KEY_CODE,
     RIGHT_KEY_CODE,
     LEFT_KEY_CODE,
+    EMPTY_SQUARE_COLOR,
+    ENTER_KEY_CODE,
+    ACTUAL_SQUARE_COLOR,
+    OCCUPIED_SQUARE_COLOR,
   } from "../const.js";
 
   import {
@@ -30,11 +34,12 @@
     destroyLines,
   } from "../utils/utils.js";
 
-  function control(e) {
-    if (e.keyCode === UP_KEY_CODE && isPlaying) moveFn = rotate;
-    else if (e.keyCode === RIGHT_KEY_CODE && isPlaying) moveFn = moveRight;
-    else if (e.keyCode === LEFT_KEY_CODE && isPlaying) moveFn = moveLeft;
-    else if (e.keyCode === DOWN_KEY_CODE && isPlaying) moveFn = moveDown;
+  function control({ keyCode }) {
+    if (keyCode === UP_KEY_CODE && isPlaying) moveFn = rotate;
+    else if (keyCode === RIGHT_KEY_CODE && isPlaying) moveFn = moveRight;
+    else if (keyCode === LEFT_KEY_CODE && isPlaying) moveFn = moveLeft;
+    else if (keyCode === DOWN_KEY_CODE && isPlaying) moveFn = moveDown;
+    else if (keyCode === ENTER_KEY_CODE && !isPlaying) isPlaying = true;
   }
 
   let squares;
@@ -57,10 +62,14 @@
   ];
 
   const draw = ({ shape }) =>
-    shape.forEach(index => (squares[index + currentPosition].color = "red"));
+    shape.forEach(
+      index => (squares[index + currentPosition].color = ACTUAL_SQUARE_COLOR)
+    );
 
   const undraw = ({ shape }) =>
-    shape.forEach(index => (squares[index + currentPosition].color = "blue"));
+    shape.forEach(
+      index => (squares[index + currentPosition].color = EMPTY_SQUARE_COLOR)
+    );
 
   const moveRight = ({ shape }) => {
     if (
@@ -119,7 +128,7 @@
   const freeze = ({ shape }) => {
     shape.forEach(index => {
       squares[index + currentPosition].isEmpty = false;
-      squares[index + currentPosition].color = "green";
+      squares[index + currentPosition].color = OCCUPIED_SQUARE_COLOR;
     });
 
     // Destroy any available complete lines /
