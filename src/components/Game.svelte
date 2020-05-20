@@ -6,6 +6,7 @@
     keyAction,
     currentBlockPosition,
     tetrimino,
+    hasGameEnded,
     currentlyPlaying,
     destroyedLines,
   } from "../mainStore.js";
@@ -34,14 +35,6 @@
     destroyLines,
   } from "../utils/utils.js";
 
-  function control({ keyCode }) {
-    if (keyCode === UP_KEY_CODE && isPlaying) moveFn = rotate;
-    else if (keyCode === RIGHT_KEY_CODE && isPlaying) moveFn = moveRight;
-    else if (keyCode === LEFT_KEY_CODE && isPlaying) moveFn = moveLeft;
-    else if (keyCode === DOWN_KEY_CODE && isPlaying) moveFn = moveDown;
-    else if (keyCode === ENTER_KEY_CODE && !isPlaying) isPlaying = true;
-  }
-
   let squares;
   let actualBlockRotation;
   let currentPosition;
@@ -58,6 +51,15 @@
     keyAction.subscribe(value => (moveFn = value)),
     currentlyPlaying.subscribe(value => (isPlaying = value)),
   ];
+
+  function control({ keyCode }) {
+    if (keyCode === UP_KEY_CODE && isPlaying) moveFn = rotate;
+    else if (keyCode === RIGHT_KEY_CODE && isPlaying) moveFn = moveRight;
+    else if (keyCode === LEFT_KEY_CODE && isPlaying) moveFn = moveLeft;
+    else if (keyCode === DOWN_KEY_CODE && isPlaying) moveFn = moveDown;
+    else if (keyCode === ENTER_KEY_CODE && !isPlaying && !$hasGameEnded)
+      isPlaying = true;
+  }
 
   const draw = ({ shape }) =>
     shape.forEach(
@@ -120,7 +122,7 @@
 
   const gameOver = () => {
     isPlaying = false;
-    alert("perdiste ogt");
+    hasGameEnded.update(() => true);
   };
 
   const freeze = ({ shape }) => {
@@ -153,7 +155,6 @@
   }
 
   // const downInterval = setInterval(() => (moveFn = moveDown), intervalTime);
-  $: console.log(isPlaying);
   onDestroy(() => unsubFns.forEach(unsubFn => unsubFn()));
 </script>
 
@@ -177,7 +178,4 @@
       <div style="background: {color}" />
     {/each}
   </section>
-  <!-- <h3 on:click={() => (isPlaying = true)}>
-    Lines Destroyed: {actualDestroyedLines}
-  </h3> -->
 </main>

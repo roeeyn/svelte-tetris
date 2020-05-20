@@ -1,6 +1,6 @@
 <script>
   import Game from "./Game.svelte";
-  import { destroyedLines } from "../mainStore.js";
+  import { destroyedLines, hasGameEnded } from "../mainStore.js";
 </script>
 
 <style>
@@ -146,7 +146,9 @@
       <div class="score">
         <p>Lines:</p>
         <p>{$destroyedLines}</p>
-        <p class="gameOver">Game Over!</p>
+        {#if $hasGameEnded}
+          <p class="gameOver">Game Over!</p>
+        {/if}
       </div>
     </div>
   </div>

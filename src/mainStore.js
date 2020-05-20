@@ -33,3 +33,5 @@ export const gridSquares = writable(
 );
 
 export const currentlyPlaying = writable(false);
+
+export const hasGameEnded = writable(false);
