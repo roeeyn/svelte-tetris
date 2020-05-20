@@ -93,6 +93,20 @@ export const destroyLines = gridSquares => {
       [[...gridSquares], []] // Initializes with a copy of the original array
     );
 
-  console.log(deletedRowsIndexes);
-  return squaresWithSpaces;
+  if (deletedRowsIndexes.length > 0) {
+    deletedRowsIndexes.forEach((rowIndex, idx) =>
+      squaresWithSpaces.splice((rowIndex - idx) * GRID_WIDTH, GRID_WIDTH)
+    );
+    const result = [
+      ...Array.from(
+        { length: deletedRowsIndexes.length * GRID_WIDTH },
+        (_, i) => ({
+          color: "blue",
+          isEmpty: true,
+        })
+      ),
+      ...squaresWithSpaces,
+    ];
+    return result;
+  } else return [...squaresWithSpaces];
 };

@@ -25,7 +25,7 @@ export const tetrimino = writable(getRandomTetrimino());
 
 export const gridSquares = writable(
   Array.from({ length: GRID_SIZE }, (_, i) => ({
-    index: i,
+    cosaIdx: i,
     color: "blue",
     isEmpty: true,
   }))
