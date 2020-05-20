@@ -9,6 +9,7 @@
     hasGameEnded,
     currentlyPlaying,
     destroyedLines,
+    intervalFn,
   } from "../mainStore.js";
   import {
     GRID_WIDTH,
@@ -57,8 +58,11 @@
     else if (keyCode === RIGHT_KEY_CODE && isPlaying) moveFn = moveRight;
     else if (keyCode === LEFT_KEY_CODE && isPlaying) moveFn = moveLeft;
     else if (keyCode === DOWN_KEY_CODE && isPlaying) moveFn = moveDown;
-    else if (keyCode === ENTER_KEY_CODE && !isPlaying && !$hasGameEnded)
+    else if (keyCode === ENTER_KEY_CODE && !isPlaying && !$hasGameEnded) {
       isPlaying = true;
+      const downInterval = setInterval(() => (moveFn = moveDown), intervalTime);
+      intervalFn.update(() => downInterval);
+    }
   }
 
   const draw = ({ shape }) =>
@@ -123,6 +127,7 @@
   const gameOver = () => {
     isPlaying = false;
     hasGameEnded.update(() => true);
+    clearInterval($intervalFn);
   };
 
   const freeze = ({ shape }) => {
@@ -154,7 +159,6 @@
     draw(actualTetrimino[actualBlockRotation]);
   }
 
-  // const downInterval = setInterval(() => (moveFn = moveDown), intervalTime);
   onDestroy(() => unsubFns.forEach(unsubFn => unsubFn()));
 </script>
 

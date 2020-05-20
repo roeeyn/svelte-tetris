@@ -27,7 +27,7 @@
   <p>
     This is a very basic tetris game. You can use
     <span class="instructionKey">arrow keys</span>
-    to move and rotate blocks. Game ends when a new piece don't fit in the
+    to move and rotate blocks. Game ends when a new piece doesn't fit in the
     screen. Enjoy!
   </p>
   <p>
