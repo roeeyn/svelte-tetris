@@ -116,7 +116,8 @@
       squares[index + currentPosition].color = "green";
     });
 
-    // Destroy any available complete lines
+    // Destroy any available complete lines /
+    // and update score
     const [newSquares, newDestroyedLines] = destroyLines(squares);
     squares = newSquares;
     actualDestroyedLines = actualDestroyedLines + newDestroyedLines;
