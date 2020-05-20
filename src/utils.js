@@ -62,26 +62,37 @@ export const isNextRotationValid = tetrimino => gridSquares => actualBlockRotati
   );
 
 export const destroyLines = gridSquares => {
-  const rowsMinMaxIndex = Array.from({ length: GRID_HEIGHT }, (_, i) => i) // Create an array for row indexes
+  const [squaresWithSpaces, deletedRowsIndexes] = Array.from(
+    { length: GRID_HEIGHT },
+    (_, i) => i
+  ) // Create an array for row indexes
     .map(rowIndex => [
+      rowIndex,
       rowIndex * GRID_WIDTH,
       rowIndex * GRID_WIDTH + GRID_WIDTH - 1,
     ]) // get max and min index for each row
     .reduce(
-      (accGridSquares, [rowMinIndex, rowMaxIndex]) => {
+      (
+        [accGridSquares, deletedRowsIndex],
+        [rowIndex, rowMinIndex, rowMaxIndex]
+      ) => {
         const isRowFilled = accGridSquares
           .slice(rowMinIndex, rowMaxIndex + 1)
           .every(square => !square.isEmpty); // Check every square in the row
         return isRowFilled
-          ? accGridSquares.map((square, index) =>
-              index >= rowMinIndex && index <= rowMaxIndex
-                ? { ...square, isEmpty: true, color: "blue" }
-                : square
-            ) // iterate over every square and reset the filled ones
-          : [...accGridSquares]; // just return a copy of the array if the row is not filled
+          ? [
+              accGridSquares.map((square, index) =>
+                index >= rowMinIndex && index <= rowMaxIndex
+                  ? { ...square, isEmpty: true, color: "blue" }
+                  : square
+              ),
+              [...deletedRowsIndex, rowIndex],
+            ] // iterate over every square and reset the filled ones
+          : [[...accGridSquares], [...deletedRowsIndex]]; // just return a copy of the array if the row is not filled
       },
-      [...gridSquares] // Initializes with a copy of the original array
+      [[...gridSquares], []] // Initializes with a copy of the original array
     );
 
-  return rowsMinMaxIndex;
+  console.log(deletedRowsIndexes);
+  return squaresWithSpaces;
 };
