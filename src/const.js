@@ -35,7 +35,7 @@ export const tTetrimino = [
   },
 ];
 
-export const lTetromino = [
+export const lTetrimino = [
   {
     shape: [1, GRID_WIDTH + 1, GRID_WIDTH * 2 + 1, 2],
     rightS2R: 0,
@@ -58,7 +58,7 @@ export const lTetromino = [
   },
 ];
 
-export const reversedLTetromino = [
+export const reversedLTetrimino = [
   {
     shape: [1, GRID_WIDTH + 2, GRID_WIDTH * 2 + 2, 2],
     rightS2R: 1,
@@ -86,7 +86,7 @@ export const reversedLTetromino = [
   },
 ];
 
-export const zTetromino = [
+export const zTetrimino = [
   {
     shape: [0, GRID_WIDTH, GRID_WIDTH + 1, GRID_WIDTH * 2 + 1],
     leftS2R: 0,
@@ -104,6 +104,29 @@ export const zTetromino = [
   },
   {
     shape: [GRID_WIDTH + 1, GRID_WIDTH + 2, GRID_WIDTH * 2, GRID_WIDTH * 2 + 1],
+    leftS2R: 0,
+    rightS2R: 0,
+  },
+];
+
+export const reversedZTetrimino = [
+  {
+    shape: [1, GRID_WIDTH, GRID_WIDTH + 1, GRID_WIDTH * 2],
+    leftS2R: 0,
+    rightS2R: 1,
+  },
+  {
+    shape: [GRID_WIDTH, GRID_WIDTH + 1, GRID_WIDTH * 2 + 1, GRID_WIDTH * 2 + 2],
+    leftS2R: 0,
+    rightS2R: 0,
+  },
+  {
+    shape: [1, GRID_WIDTH, GRID_WIDTH + 1, GRID_WIDTH * 2],
+    leftS2R: 0,
+    rightS2R: 1,
+  },
+  {
+    shape: [GRID_WIDTH, GRID_WIDTH + 1, GRID_WIDTH * 2 + 1, GRID_WIDTH * 2 + 2],
     leftS2R: 0,
     rightS2R: 0,
   },
