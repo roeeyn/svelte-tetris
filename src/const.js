@@ -131,3 +131,10 @@ export const reversedZTetrimino = [
     rightS2R: 0,
   },
 ];
+
+export const oTetrimino = [
+  { shape: [0, 1, GRID_WIDTH, GRID_WIDTH + 1], rightS2R: 0, leftS2R: 0 },
+  { shape: [0, 1, GRID_WIDTH, GRID_WIDTH + 1], rightS2R: 0, leftS2R: 0 },
+  { shape: [0, 1, GRID_WIDTH, GRID_WIDTH + 1], rightS2R: 0, leftS2R: 0 },
+  { shape: [0, 1, GRID_WIDTH, GRID_WIDTH + 1], rightS2R: 0, leftS2R: 0 },
+];
