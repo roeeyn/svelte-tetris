@@ -1,51 +1,126 @@
 <style>
-  .console {
-    width: 420px;
-    height: 720px;
-    margin: 36px 32px;
-    background: linear-gradient(90deg, #efe7db 1%, #f7f3ed 100%);
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
+  .case {
+    margin: 0 36px;
+    min-width: 425px;
+    width: min(425px, 50vmin);
+    height: min(715px, 85vmin);
+    background: linear-gradient(89.26deg, #efe7db 1.12%, #f7f3ed 99%);
+    border-radius: 1vmin;
+    clip-path: polygon(0 95%, 7% 100%, 90% 100%, 100% 91%, 100% 0, 0 0);
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 60% 2fr 1fr;
+    justify-items: center;
+    align-items: center;
   }
 
-  .gameButtonsContainer {
-    background: gray;
-    flex: 2;
-    width: 100%;
-  }
-
-  .gameContainer {
-    height: 80%;
-    width: 100%;
-    background: red;
+  .outer-screen {
+    width: 85%;
+    height: 90%;
+    background: linear-gradient(89.05deg, #949ab8 1.12%, #bac3d5 99.25%);
+    border-radius: inherit;
     display: flex;
     justify-content: center;
     align-items: center;
   }
-  .screenBorder {
-    flex: 3;
-    margin: 36px 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(90deg, #949ab8 1%, #bac3d5 100%);
-    border-radius: 10px;
+
+  .inner-screen {
+    height: 85%;
+    width: 85%;
+    background: linear-gradient(88.95deg, #b9d098 0.68%, #ccddaf 98.63%);
+    border-radius: inherit;
+    display: block;
   }
-  .screen {
-    height: calc(100% - 68px);
-    width: 100%;
-    margin: 34px 30px;
-    background: linear-gradient(90deg, #b9d098 1%, #ccddaf 100%);
-    border-radius: 10px;
+
+  .controls {
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .direction-pad {
+    width: min(80px, 10vmin);
+    height: min(80px, 10vmin);
+    background: linear-gradient(90deg, #000000 0%, #525252 100%);
+    clip-path: polygon(
+      0 35%,
+      35% 35%,
+      35% 0,
+      65% 0%,
+      65% 35%,
+      100% 35%,
+      100% 65%,
+      65% 65%,
+      65% 100%,
+      35% 100%,
+      35% 65%,
+      0 65%
+    );
+  }
+
+  .right-controls {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .button {
+    width: min(40px, 5vmin);
+    height: min(40px, 5vmin);
+    border-radius: 50%;
+    background: linear-gradient(90deg, #e16481 0%, #e7859b 100%);
+  }
+
+  .right {
+    grid-column: 2;
+  }
+
+  .speakers-group {
+    width: max-content;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-gap: 1vmin;
+  }
+
+  .speaker {
+    border-radius: 100%;
+    width: max(3px, 0.5vmin);
+    height: max(3px, 0.5vmin);
+    background: #1b1b1b;
   }
 </style>
 
-<div class="gameContainer">
-  <div class="console">
-    <div class="screenBorder">
-      <div class="screen" />
+<div class="case">
+  <div class="outer-screen">
+    <div class="inner-screen" />
+  </div>
+  <div class="controls">
+    <div class="left-controls">
+      <div class="direction-pad" />
     </div>
-    <div class="gameButtonsContainer" />
+    <div class="right-controls">
+      <div class="button right" />
+      <div class="button left" />
+    </div>
+  </div>
+  <div class="speakers">
+    <div class="speakers-group">
+      <div class="speaker" />
+      <div class="speaker" />
+      <div class="speaker" />
+      <div class="speaker" />
+      <div class="speaker" />
+      <div class="speaker" />
+      <div class="speaker" />
+      <div class="speaker" />
+      <div class="speaker" />
+      <div class="speaker" />
+      <div class="speaker" />
+      <div class="speaker" />
+      <div class="speaker" />
+      <div class="speaker" />
+      <div class="speaker" />
+    </div>
   </div>
 </div>
