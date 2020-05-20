@@ -1,7 +1,8 @@
 <style>
   .case {
-    margin: 0 36px;
+    margin: 5vmax;
     min-width: 425px;
+    min-height: 715px;
     width: min(425px, 50vmin);
     height: min(715px, 85vmin);
     background: linear-gradient(89.26deg, #efe7db 1.12%, #f7f3ed 99%);
@@ -40,6 +41,8 @@
 
   .direction-pad {
     width: min(80px, 10vmin);
+    min-width: 80px;
+    min-height: 80px;
     height: min(80px, 10vmin);
     background: linear-gradient(90deg, #000000 0%, #525252 100%);
     clip-path: polygon(
@@ -65,6 +68,8 @@
   }
 
   .button {
+    min-width: 40px;
+    min-height: 40px;
     width: min(40px, 5vmin);
     height: min(40px, 5vmin);
     border-radius: 50%;
@@ -85,6 +90,8 @@
 
   .speaker {
     border-radius: 100%;
+    min-width: 3px;
+    min-height: 3px;
     width: max(3px, 0.5vmin);
     height: max(3px, 0.5vmin);
     background: #1b1b1b;

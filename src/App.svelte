@@ -7,9 +7,11 @@
 <style>
   .main {
     background: rgb(61, 147, 183);
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
+    justify-content: center;
     margin: 0;
   }
 </style>
