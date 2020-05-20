@@ -8,7 +8,9 @@ import {
   iTetrimino,
   reversedZTetrimino,
   oTetrimino,
+  GRID_HEIGHT,
 } from "./const";
+import { gridSquares } from "./mainStore";
 
 export const safelyIncRotation = number => (number === 3 ? 0 : number + 1);
 
@@ -39,11 +41,11 @@ export const isEmptyAtLeft = tetriminoShape => currentPosition => gridSquares =>
 
 export const getRandomTetrimino = () => {
   const tetriminos = [
-    tTetrimino,
-    lTetrimino,
-    reversedLTetrimino,
-    zTetrimino,
-    reversedZTetrimino,
+    // tTetrimino,
+    // // lTetrimino,
+    // reversedLTetrimino,
+    // zTetrimino,
+    // reversedZTetrimino,
     oTetrimino,
     iTetrimino,
   ];
@@ -58,3 +60,28 @@ export const isNextRotationValid = tetrimino => gridSquares => actualBlockRotati
       currentPosition + index <= GRID_SIZE &&
       gridSquares[currentPosition + index].isEmpty
   );
+
+export const destroyLines = gridSquares => {
+  const rowsMinMaxIndex = Array.from({ length: GRID_HEIGHT }, (_, i) => i) // Create an array for row indexes
+    .map(rowIndex => [
+      rowIndex * GRID_WIDTH,
+      rowIndex * GRID_WIDTH + GRID_WIDTH - 1,
+    ]) // get max and min index for each row
+    .reduce(
+      (accGridSquares, [rowMinIndex, rowMaxIndex]) => {
+        const isRowFilled = accGridSquares
+          .slice(rowMinIndex, rowMaxIndex + 1)
+          .every(square => !square.isEmpty); // Check every square in the row
+        return isRowFilled
+          ? accGridSquares.map((square, index) =>
+              index >= rowMinIndex && index <= rowMaxIndex
+                ? { ...square, isEmpty: true, color: "blue" }
+                : square
+            ) // iterate over every square and reset the filled ones
+          : [...accGridSquares]; // just return a copy of the array if the row is not filled
+      },
+      [...gridSquares] // Initializes with a copy of the original array
+    );
+
+  return rowsMinMaxIndex;
+};

@@ -25,6 +25,7 @@
     isEmptyAtLeft,
     isNextRotationValid,
     getRandomTetrimino,
+    destroyLines,
   } from "./utils.js";
 
   function control(e) {
@@ -111,6 +112,11 @@
       squares[index + currentPosition].isEmpty = false;
       squares[index + currentPosition].color = "green";
     });
+
+    // Destroy any available complete line
+    squares = destroyLines(squares);
+
+    // Create another tetrimino and restart position
     currentPosition = GRID_WIDTH / 2 - 1;
     actualTetrimino = getRandomTetrimino();
     draw(actualTetrimino[actualBlockRotation]);
