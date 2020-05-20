@@ -39,18 +39,15 @@
   let currentPosition;
   let moveFn;
   let actualTetrimino;
+  let intervalTime = 750;
 
-  const unsubTetrimino = tetrimino.subscribe(
-    value => (actualTetrimino = value)
-  );
-  const unsubSquares = gridSquares.subscribe(value => (squares = value));
-  const unsubBlockRotation = blockRotation.subscribe(
-    value => (actualBlockRotation = value)
-  );
-  const unsubPosition = currentBlockPosition.subscribe(
-    value => (currentPosition = value)
-  );
-  const unsubMoveFn = keyAction.subscribe(value => (moveFn = value));
+  const unsubFns = [
+    tetrimino.subscribe(value => (actualTetrimino = value)),
+    gridSquares.subscribe(value => (squares = value)),
+    blockRotation.subscribe(value => (actualBlockRotation = value)),
+    currentBlockPosition.subscribe(value => (currentPosition = value)),
+    keyAction.subscribe(value => (moveFn = value)),
+  ];
 
   const draw = ({ shape }) =>
     shape.forEach(index => (squares[index + currentPosition].color = "red"));
@@ -125,10 +122,9 @@
     draw(actualTetrimino[actualBlockRotation]);
   }
 
-  onDestroy(
-    () =>
-      unsubSquares() || unsubBlockRotation() || unsubPosition() || unsubMoveFn()
-  );
+  // const downInterval = setInterval(() => (moveFn = moveDown), intervalTime);
+
+  onDestroy(() => unsubFns.forEach(unsubFn => unsubFn()));
 </script>
 
 <style>

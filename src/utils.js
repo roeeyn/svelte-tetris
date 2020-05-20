@@ -39,12 +39,12 @@ export const isEmptyAtLeft = tetriminoShape => currentPosition => gridSquares =>
 
 export const getRandomTetrimino = () => {
   const tetriminos = [
-    //tTetrimino,
-    //lTetromino,
-    //reversedLTetromino,
-    //zTetrimino,
-    //reversedZTetrimino,
-    //oTetrimino,
+    tTetrimino,
+    lTetrimino,
+    reversedLTetrimino,
+    zTetrimino,
+    reversedZTetrimino,
+    oTetrimino,
     iTetrimino,
   ];
   return tetriminos[Math.floor(Math.random() * tetriminos.length)];
