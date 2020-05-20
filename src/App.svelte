@@ -77,34 +77,26 @@
   };
 
   const rotate = ({ shape, leftS2R, rightS2R }) => {
-    // Making both calculations is not as heavy as it |
-    // may sound because the size is fixed to 4
+    // Partial function application as the first values \
+    // won't change in this method execution
     const isValid = isNextRotationValid(tTetrimino)(squares)(
       actualBlockRotation
-    )(currentPosition);
+    );
 
-    if (isValid) {
+    if (isValid(currentPosition)) {
       if (isAtLeftEdge(shape)(currentPosition)) {
         currentPosition = currentPosition + leftS2R;
-        const isValid2 = isNextRotationValid(tTetrimino)(squares)(
-          actualBlockRotation
-        )(currentPosition);
-        if (isValid2) {
-          blockRotation.rotate();
-        } else {
-          currentPosition = currentPosition - leftS2R;
-        }
+
+        if (isValid(currentPosition)) blockRotation.rotate();
+        else currentPosition = currentPosition - leftS2R;
+
         return;
       } else if (isAtRightEdge(shape)(currentPosition)) {
         currentPosition = currentPosition - rightS2R;
-        const isValid2 = isNextRotationValid(tTetrimino)(squares)(
-          actualBlockRotation
-        )(currentPosition);
-        if (isValid2) {
-          blockRotation.rotate();
-        } else {
-          currentPosition = currentPosition + rightS2R;
-        }
+
+        if (isValid(currentPosition)) blockRotation.rotate();
+        else currentPosition = currentPosition + rightS2R;
+
         return;
       }
 
