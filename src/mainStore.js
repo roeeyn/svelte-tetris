@@ -1,6 +1,6 @@
 import { writable } from "svelte/store";
 import { GRID_SIZE, GRID_WIDTH } from "./const.js";
-import { safelyIncRotation, getRandomTetrimino } from "./utils.js";
+import { safelyIncRotation, getRandomTetrimino } from "./utils/utils.js";
 
 const createBlockRotation = () => {
   const { subscribe, update } = writable(0);
@@ -26,9 +26,10 @@ export const tetrimino = writable(getRandomTetrimino());
 export const destroyedLines = writable(0);
 
 export const gridSquares = writable(
-  Array.from({ length: GRID_SIZE }, (_, i) => ({
-    cosaIdx: i,
+  Array.from({ length: GRID_SIZE }, () => ({
     color: "blue",
     isEmpty: true,
   }))
 );
+
+export const currentlyPlaying = writable(false);

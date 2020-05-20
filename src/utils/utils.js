@@ -9,7 +9,7 @@ import {
   reversedZTetrimino,
   oTetrimino,
   GRID_HEIGHT,
-} from "./const";
+} from "../const";
 
 export const safelyIncRotation = number => (number === 3 ? 0 : number + 1);
 
