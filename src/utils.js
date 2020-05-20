@@ -1,4 +1,4 @@
-import { GRID_SIZE, GRID_WIDTH } from "./const";
+import { GRID_SIZE, GRID_WIDTH, tTetrimino, lTetromino } from "./const";
 
 export const safelyIncRotation = number => (number === 3 ? 0 : number + 1);
 
@@ -26,6 +26,11 @@ export const isEmptyAtLeft = tetriminoShape => currentPosition => gridSquares =>
   tetriminoShape.every(
     index => gridSquares[currentPosition + index - 1].isEmpty
   );
+
+export const getRandomTetrimino = () => {
+  const tetriminos = [tTetrimino, lTetromino];
+  return tetriminos[Math.floor(Math.random() * tetriminos.length)];
+};
 
 export const isNextRotationValid = tetrimino => gridSquares => actualBlockRotation => currentPosition =>
   tetrimino[

@@ -34,3 +34,26 @@ export const tTetrimino = [
     leftS2R: 0,
   },
 ];
+
+export const lTetromino = [
+  {
+    shape: [1, GRID_WIDTH + 1, GRID_WIDTH * 2 + 1, 2],
+    rightS2R: 0,
+    leftS2R: 1,
+  },
+  {
+    shape: [GRID_WIDTH, GRID_WIDTH + 1, GRID_WIDTH + 2, GRID_WIDTH * 2 + 2],
+    rightS2R: 0,
+    leftS2R: 0,
+  },
+  {
+    shape: [1, GRID_WIDTH + 1, GRID_WIDTH * 2 + 1, GRID_WIDTH * 2],
+    rightS2R: 1,
+    leftS2R: 0,
+  },
+  {
+    shape: [GRID_WIDTH, GRID_WIDTH * 2, GRID_WIDTH * 2 + 1, GRID_WIDTH * 2 + 2],
+    rightS2R: 0,
+    leftS2R: 0,
+  },
+];

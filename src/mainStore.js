@@ -1,6 +1,6 @@
 import { writable } from "svelte/store";
 import { GRID_SIZE, GRID_WIDTH } from "./const.js";
-import { safelyIncRotation } from "./utils.js";
+import { safelyIncRotation, getRandomTetrimino } from "./utils.js";
 
 const createBlockRotation = () => {
   const { subscribe, update } = writable(0);
@@ -20,6 +20,8 @@ export const currentBlockPosition = writable(GRID_WIDTH / 2 - 1);
 
 // Action that will be executed depending on keycode
 export const keyAction = writable(() => {});
+
+export const tetrimino = writable(getRandomTetrimino());
 
 export const gridSquares = writable(
   Array.from({ length: GRID_SIZE }, (_, i) => ({

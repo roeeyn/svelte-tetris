@@ -5,6 +5,7 @@
     blockRotation,
     keyAction,
     currentBlockPosition,
+    tetrimino,
   } from "./mainStore.js";
   import {
     GRID_WIDTH,
@@ -13,7 +14,6 @@
     UP_KEY_CODE,
     RIGHT_KEY_CODE,
     LEFT_KEY_CODE,
-    tTetrimino,
   } from "./const.js";
 
   import {
@@ -24,6 +24,7 @@
     isEmptyAtRight,
     isEmptyAtLeft,
     isNextRotationValid,
+    getRandomTetrimino,
   } from "./utils.js";
 
   function control(e) {
@@ -37,7 +38,11 @@
   let actualBlockRotation;
   let currentPosition;
   let moveFn;
+  let actualTetrimino;
 
+  const unsubTetrimino = tetrimino.subscribe(
+    value => (actualTetrimino = value)
+  );
   const unsubSquares = gridSquares.subscribe(value => (squares = value));
   const unsubBlockRotation = blockRotation.subscribe(
     value => (actualBlockRotation = value)
@@ -79,7 +84,7 @@
   const rotate = ({ shape, leftS2R, rightS2R }) => {
     // Partial function application as the first values \
     // won't change in this method execution
-    const isValid = isNextRotationValid(tTetrimino)(squares)(
+    const isValid = isNextRotationValid(actualTetrimino)(squares)(
       actualBlockRotation
     );
 
@@ -110,13 +115,14 @@
       squares[index + currentPosition].color = "green";
     });
     currentPosition = GRID_WIDTH / 2 - 1;
-    draw(tTetrimino[actualBlockRotation]);
+    actualTetrimino = getRandomTetrimino();
+    draw(actualTetrimino[actualBlockRotation]);
   };
 
   $: {
-    undraw(tTetrimino[actualBlockRotation]);
-    moveFn(tTetrimino[actualBlockRotation]);
-    draw(tTetrimino[actualBlockRotation]);
+    undraw(actualTetrimino[actualBlockRotation]);
+    moveFn(actualTetrimino[actualBlockRotation]);
+    draw(actualTetrimino[actualBlockRotation]);
   }
 
   onDestroy(
