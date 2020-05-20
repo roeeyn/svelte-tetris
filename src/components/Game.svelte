@@ -153,22 +153,13 @@
 
 <style>
   main {
-    /* background: red; */
+    margin: 0 auto;
   }
-
-  .block {
-    background: red;
-  }
-
   section {
     display: grid;
-    grid-template-rows: repeat(20, 10px);
-    grid-template-columns: repeat(10, 10px);
+    grid-template-rows: repeat(20, 14px);
+    grid-template-columns: repeat(10, 14px);
     gap: 1px;
-  }
-
-  div {
-    /* background: blue; */
   }
 </style>
 
@@ -180,7 +171,7 @@
       <div style="background: {color}" />
     {/each}
   </section>
-  <h3 on:click={() => (isPlaying = true)}>
+  <!-- <h3 on:click={() => (isPlaying = true)}>
     Lines Destroyed: {actualDestroyedLines}
-  </h3>
+  </h3> -->
 </main>

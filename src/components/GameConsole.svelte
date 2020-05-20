@@ -1,3 +1,7 @@
+<script>
+  import Game from "./Game.svelte";
+</script>
+
 <style>
   .case {
     margin: 5vmax;
@@ -5,7 +9,11 @@
     min-height: 715px;
     width: min(425px, 50vmin);
     height: min(715px, 85vmin);
-    background: linear-gradient(89.26deg, #efe7db 1.12%, #f7f3ed 99%);
+    background: linear-gradient(
+      89.26deg,
+      hsl(36, 38%, 90%) 1.12%,
+      hsl(36, 38%, 95%) 99%
+    );
     border-radius: 1vmin;
     clip-path: polygon(0 95%, 7% 100%, 90% 100%, 100% 91%, 100% 0, 0 0);
     display: grid;
@@ -18,7 +26,11 @@
   .outer-screen {
     width: 85%;
     height: 90%;
-    background: linear-gradient(89.05deg, #949ab8 1.12%, #bac3d5 99.25%);
+    background: linear-gradient(
+      89.05deg,
+      hsl(230, 20%, 65%) 1.12%,
+      hsl(220, 24%, 78%) 99.25%
+    );
     border-radius: inherit;
     display: flex;
     justify-content: center;
@@ -28,9 +40,15 @@
   .inner-screen {
     height: 85%;
     width: 85%;
-    background: linear-gradient(88.95deg, #b9d098 0.68%, #ccddaf 98.63%);
+    background: linear-gradient(
+      88.95deg,
+      hsl(85, 37%, 71%) 0.68%,
+      hsl(82, 40%, 78%) 98.63%
+    );
     border-radius: inherit;
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .controls {
@@ -44,7 +62,7 @@
     min-width: 80px;
     min-height: 80px;
     height: min(80px, 10vmin);
-    background: linear-gradient(90deg, #000000 0%, #525252 100%);
+    background: linear-gradient(90deg, hsl(0, 0%, 0%) 0%, hsl(0, 0%, 32%) 100%);
     clip-path: polygon(
       0 35%,
       35% 35%,
@@ -73,11 +91,33 @@
     width: min(40px, 5vmin);
     height: min(40px, 5vmin);
     border-radius: 50%;
-    background: linear-gradient(90deg, #e16481 0%, #e7859b 100%);
+    background: linear-gradient(
+      90deg,
+      hsl(346, 68%, 64%) 0%,
+      hsl(347, 67%, 71%) 100%
+    );
   }
 
   .right {
     grid-column: 2;
+  }
+
+  .gameOver {
+    padding-top: 48px;
+    font-weight: bold;
+  }
+
+  .score {
+    padding: 14px 12px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .score > p {
+    margin: 0;
+    color: hsl(85, 37%, 30%);
   }
 
   .speakers-group {
@@ -100,7 +140,14 @@
 
 <div class="case">
   <div class="outer-screen">
-    <div class="inner-screen" />
+    <div class="inner-screen">
+      <Game />
+      <div class="score">
+        <p>Lines:</p>
+        <p>0</p>
+        <p class="gameOver">Game Over!</p>
+      </div>
+    </div>
   </div>
   <div class="controls">
     <div class="left-controls">

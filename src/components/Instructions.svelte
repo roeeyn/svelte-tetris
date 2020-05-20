@@ -13,8 +13,6 @@
   p {
     /* font-size: 24px; */
     font-size: calc(1vmax + 12px);
-    font-family: "Roboto Mono", monospace;
-    color: hsl(198, 52%, 95%);
   }
 </style>
 
