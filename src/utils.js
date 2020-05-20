@@ -92,15 +92,16 @@ export const destroyLines = gridSquares => {
       [[...gridSquares], []] // Initializes with a copy of the original array
     );
 
+  let resultSquares;
   if (deletedRowsIndexes.length > 0) {
-    // This is because it may appear some edge cases
+    // This is because it may appear some edge cases \
     // when a user fill no consecutive lines
     deletedRowsIndexes.forEach((rowIndex, idx) =>
-      // We have to substract index from row index as it
+      // We have to substract index from row index as it \
       // moves 'up' with each splice
       squaresWithSpaces.splice((rowIndex - idx) * GRID_WIDTH, GRID_WIDTH)
     );
-    const result = [
+    resultSquares = [
       // We fill deleted spaces with new squares at the beginning
       ...Array.from({ length: deletedRowsIndexes.length * GRID_WIDTH }, () => ({
         color: "blue",
@@ -108,6 +109,7 @@ export const destroyLines = gridSquares => {
       })),
       ...squaresWithSpaces,
     ];
-    return result;
-  } else return [...squaresWithSpaces];
+  } else resultSquares = [...squaresWithSpaces];
+
+  return [resultSquares, deletedRowsIndexes.length];
 };

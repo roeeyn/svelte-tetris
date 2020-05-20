@@ -6,6 +6,7 @@
     keyAction,
     currentBlockPosition,
     tetrimino,
+    destroyedLines,
   } from "./mainStore.js";
   import {
     GRID_WIDTH,
@@ -40,6 +41,7 @@
   let currentPosition;
   let moveFn;
   let actualTetrimino;
+  let actualDestroyedLines;
   let intervalTime = 750;
 
   const unsubFns = [
@@ -48,6 +50,7 @@
     blockRotation.subscribe(value => (actualBlockRotation = value)),
     currentBlockPosition.subscribe(value => (currentPosition = value)),
     keyAction.subscribe(value => (moveFn = value)),
+    destroyedLines.subscribe(value => (actualDestroyedLines = value)),
   ];
 
   const draw = ({ shape }) =>
@@ -113,8 +116,10 @@
       squares[index + currentPosition].color = "green";
     });
 
-    // Destroy any available complete line
-    squares = destroyLines(squares);
+    // Destroy any available complete lines
+    const [newSquares, newDestroyedLines] = destroyLines(squares);
+    squares = newSquares;
+    actualDestroyedLines = actualDestroyedLines + newDestroyedLines;
 
     // Create another tetrimino and restart position
     currentPosition = GRID_WIDTH / 2 - 1;
@@ -162,4 +167,5 @@
       <div style="background: {color}" />
     {/each}
   </section>
+  <h3>Lines Destroyed: {actualDestroyedLines}</h3>
 </main>
