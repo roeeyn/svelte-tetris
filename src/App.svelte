@@ -21,6 +21,9 @@
     isAtBottom,
     isAtRightEdge,
     isAtLeftEdge,
+    isEmptyAtRight,
+    isEmptyAtLeft,
+    isNextRotationValid,
   } from "./utils.js";
 
   function control(e) {
@@ -53,11 +56,19 @@
   };
 
   const moveRight = ({ shape }) => {
-    if (!isAtRightEdge(shape)(currentPosition)(squares)) currentPosition += 1;
+    if (
+      !isAtRightEdge(shape)(currentPosition) &&
+      isEmptyAtRight(shape)(currentPosition)(squares)
+    )
+      currentPosition += 1;
   };
 
   const moveLeft = ({ shape }) => {
-    if (!isAtLeftEdge(shape)(currentPosition)(squares)) currentPosition -= 1;
+    if (
+      !isAtLeftEdge(shape)(currentPosition) &&
+      isEmptyAtLeft(shape)(currentPosition)(squares)
+    )
+      currentPosition -= 1;
   };
 
   const moveDown = ({ shape }) => {
@@ -68,19 +79,34 @@
   const rotate = ({ shape, leftS2R, rightS2R }) => {
     // Making both calculations is not as heavy as it |
     // may sound because the size is fixed to 4
-    const isValid = tTetrimino[
-      safelyIncRotation(actualBlockRotation) // see next position
-    ].shape.every(
-      index =>
-        currentPosition + index <= GRID_SIZE &&
-        squares[currentPosition + index].isEmpty
-    );
+    const isValid = isNextRotationValid(tTetrimino)(squares)(
+      actualBlockRotation
+    )(currentPosition);
 
     if (isValid) {
-      if (isAtLeftEdge(shape)(currentPosition)(squares))
+      if (isAtLeftEdge(shape)(currentPosition)) {
         currentPosition = currentPosition + leftS2R;
-      else if (isAtRightEdge(shape)(currentPosition)(squares))
+        const isValid2 = isNextRotationValid(tTetrimino)(squares)(
+          actualBlockRotation
+        )(currentPosition);
+        if (isValid2) {
+          blockRotation.rotate();
+        } else {
+          currentPosition = currentPosition - leftS2R;
+        }
+        return;
+      } else if (isAtRightEdge(shape)(currentPosition)) {
         currentPosition = currentPosition - rightS2R;
+        const isValid2 = isNextRotationValid(tTetrimino)(squares)(
+          actualBlockRotation
+        )(currentPosition);
+        if (isValid2) {
+          blockRotation.rotate();
+        } else {
+          currentPosition = currentPosition + rightS2R;
+        }
+        return;
+      }
 
       blockRotation.rotate();
     }

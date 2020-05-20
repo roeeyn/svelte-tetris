@@ -9,16 +9,29 @@ export const isAtBottom = tetriminoShape => currentPosition => gridSquares =>
       !gridSquares[currentPosition + index + GRID_WIDTH].isEmpty
   );
 
-export const isAtRightEdge = tetriminoShape => currentPosition => gridSquares =>
+export const isAtRightEdge = tetriminoShape => currentPosition =>
   tetriminoShape.some(
-    index =>
-      (currentPosition + index) % GRID_WIDTH === GRID_WIDTH - 1 ||
-      !gridSquares[currentPosition + index + 1].isEmpty
+    index => (currentPosition + index) % GRID_WIDTH === GRID_WIDTH - 1
   );
 
-export const isAtLeftEdge = tetriminoShape => currentPosition => gridSquares =>
-  tetriminoShape.some(
+export const isEmptyAtRight = tetriminoShape => currentPosition => gridSquares =>
+  tetriminoShape.every(
+    index => gridSquares[currentPosition + index + 1].isEmpty
+  );
+
+export const isAtLeftEdge = tetriminoShape => currentPosition =>
+  tetriminoShape.some(index => (currentPosition + index) % GRID_WIDTH === 0);
+
+export const isEmptyAtLeft = tetriminoShape => currentPosition => gridSquares =>
+  tetriminoShape.every(
+    index => gridSquares[currentPosition + index - 1].isEmpty
+  );
+
+export const isNextRotationValid = tetrimino => gridSquares => actualBlockRotation => currentPosition =>
+  tetrimino[
+    safelyIncRotation(actualBlockRotation) // see next position
+  ].shape.every(
     index =>
-      (currentPosition + index) % GRID_WIDTH === 0 ||
-      !gridSquares[currentPosition + index - 1].isEmpty
+      currentPosition + index <= GRID_SIZE &&
+      gridSquares[currentPosition + index].isEmpty
   );
