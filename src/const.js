@@ -57,3 +57,31 @@ export const lTetromino = [
     leftS2R: 0,
   },
 ];
+
+export const reversedLTetromino = [
+  {
+    shape: [1, GRID_WIDTH + 2, GRID_WIDTH * 2 + 2, 2],
+    rightS2R: 1,
+    leftS2R: 0,
+  },
+  {
+    shape: [
+      GRID_WIDTH * 2 + 1,
+      GRID_WIDTH * 2 + 2,
+      GRID_WIDTH + 3,
+      GRID_WIDTH * 2 + 3,
+    ],
+    rightS2R: 0,
+    leftS2R: 0,
+  },
+  {
+    shape: [1, GRID_WIDTH + 1, GRID_WIDTH * 2 + 1, GRID_WIDTH * 2 + 2],
+    rightS2R: 0,
+    leftS2R: 0,
+  },
+  {
+    shape: [GRID_WIDTH + 1, GRID_WIDTH * 2 + 1, GRID_WIDTH + 2, GRID_WIDTH + 3],
+    rightS2R: 0,
+    leftS2R: 0,
+  },
+];
