@@ -10,7 +10,6 @@ import {
   oTetrimino,
   GRID_HEIGHT,
 } from "./const";
-import { gridSquares } from "./mainStore";
 
 export const safelyIncRotation = number => (number === 3 ? 0 : number + 1);
 
@@ -41,11 +40,11 @@ export const isEmptyAtLeft = tetriminoShape => currentPosition => gridSquares =>
 
 export const getRandomTetrimino = () => {
   const tetriminos = [
-    // tTetrimino,
-    // // lTetrimino,
-    // reversedLTetrimino,
-    // zTetrimino,
-    // reversedZTetrimino,
+    tTetrimino,
+    lTetrimino,
+    reversedLTetrimino,
+    zTetrimino,
+    reversedZTetrimino,
     oTetrimino,
     iTetrimino,
   ];
@@ -70,7 +69,7 @@ export const destroyLines = gridSquares => {
       rowIndex,
       rowIndex * GRID_WIDTH,
       rowIndex * GRID_WIDTH + GRID_WIDTH - 1,
-    ]) // get max and min index for each row
+    ]) // get row, max and min for each row
     .reduce(
       (
         [accGridSquares, deletedRowsIndex],
@@ -94,17 +93,19 @@ export const destroyLines = gridSquares => {
     );
 
   if (deletedRowsIndexes.length > 0) {
+    // This is because it may appear some edge cases
+    // when a user fill no consecutive lines
     deletedRowsIndexes.forEach((rowIndex, idx) =>
+      // We have to substract index from row index as it
+      // moves 'up' with each splice
       squaresWithSpaces.splice((rowIndex - idx) * GRID_WIDTH, GRID_WIDTH)
     );
     const result = [
-      ...Array.from(
-        { length: deletedRowsIndexes.length * GRID_WIDTH },
-        (_, i) => ({
-          color: "blue",
-          isEmpty: true,
-        })
-      ),
+      // We fill deleted spaces with new squares at the beginning
+      ...Array.from({ length: deletedRowsIndexes.length * GRID_WIDTH }, () => ({
+        color: "blue",
+        isEmpty: true,
+      })),
       ...squaresWithSpaces,
     ];
     return result;
