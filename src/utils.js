@@ -5,7 +5,7 @@ export const safelyIncRotation = number => (number === 3 ? 0 : number + 1);
 export const isAtBottom = tetriminoShape => currentPosition => gridSquares =>
   tetriminoShape.some(
     index =>
-      currentPosition + index + GRID_WIDTH > GRID_SIZE ||
+      currentPosition + index + GRID_WIDTH >= GRID_SIZE ||
       !gridSquares[currentPosition + index + GRID_WIDTH].isEmpty
   );
 
