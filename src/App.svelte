@@ -12,11 +12,20 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
+    position: relative;
     margin: 0;
+  }
+  img {
+    position: absolute;
+    top: 0;
+    right: 0;
   }
 </style>
 
 <main class="main">
+  <a href="https://github.com/roeeyn/SvelteTetris" target="_blank">
+    <img src="./corner.svg" alt="fork in GitHub" />
+  </a>
   <GameConsole />
   <Instructions />
 </main>
