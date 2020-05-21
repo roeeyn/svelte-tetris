@@ -34,7 +34,7 @@ npm run build
 
 ## Deploying to the Web
 
-I've automated this repo to build and deploy automatically to [Firebase](https://firebase.google.com/?hl=es) using GitHub Actions. For achieving that you need to create a project inside Firebas Console and getting Firebase Token by executing:
+I've automated this repo to build and deploy automatically to [Firebase](https://firebase.google.com/?hl=es) using GitHub Actions. For achieving that you need to create a project inside Firebase Console and getting Firebase Token by executing:
 
 ```bash
 # optional deploy automation
