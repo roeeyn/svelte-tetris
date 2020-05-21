@@ -2,6 +2,8 @@
 
 This is a very basic Tetris game made in the Svelte framework.
 
+![Demo Gif](https://media.giphy.com/media/PlrphASwpX5oiARVTA/giphy.gif)
+
 ## Get started
 
 Install the dependencies...
