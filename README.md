@@ -2,6 +2,8 @@
 
 This is a very basic Tetris game made in the Svelte framework.
 
+You can check it out [here](https://roeeyn-svelte-tetris.web.app/).
+
 ![Demo Gif](https://media.giphy.com/media/PlrphASwpX5oiARVTA/giphy.gif)
 
 ## Get started
@@ -41,6 +43,8 @@ firebase login:ci
 
 ## Justification for the project
 
-I advanced to the second stage in the [MLH Fellowship](https://fellowship.mlh.io/) application, and I was asked to upload a significant project where I showed my skils. As most of my best projects are private I decided to create this game, in which I **designed, developed, automate and deploy** a web app.
+I advanced to the second stage in the [MLH Fellowship](https://fellowship.mlh.io/) application, and I was asked to upload a significant project where I showed my skils. As most of my best projects are private I decided to create this game, and learn a new framework ([Svelte](https://svelte.dev/)) in the way.
 
-I hope this demostrate that I'm ready for a bigger project 🔥.
+I was inspired by [this](https://github.com/kubowania/Tetris) project which gave me a very good foundation of the game basics, but didn't have all the functionality I wanted. Also [ddanielcruzz](https://github.com/ddanielcruzz) helped me designing the [console](https://twitter.com/danielcruzdev/status/1263219922450161668?s=12) and helped me by giving me a general review of my project.
+
+I hope this demostrate that I'm ready for a bigger challenge 🔥.
