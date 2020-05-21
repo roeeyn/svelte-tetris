@@ -45,6 +45,6 @@ firebase login:ci
 
 I advanced to the second stage in the [MLH Fellowship](https://fellowship.mlh.io/) application, and I was asked to upload a significant project where I showed my skils. As most of my best projects are private I decided to create this game, and learn a new framework ([Svelte](https://svelte.dev/)) in the way.
 
-I was inspired by [this](https://github.com/kubowania/Tetris) project which gave me a very good foundation of the game basics, but didn't have all the functionality I wanted. Also [ddanielcruzz](https://github.com/ddanielcruzz) helped me designing the [console](https://twitter.com/danielcruzdev/status/1263219922450161668?s=12) and helped me by giving me a general review of my project.
+I was inspired by [this](https://github.com/kubowania/Tetris) project which gave me a very good foundation of the game basics, but didn't have all the functionality I wanted. Also [ddanielcruzz](https://github.com/ddanielcruzz) helped me designing the [game console](https://twitter.com/danielcruzdev/status/1263219922450161668?s=12) and helped me by giving me a general review of my project.
 
 I hope this demostrate that I'm ready for a bigger challenge 🔥.
