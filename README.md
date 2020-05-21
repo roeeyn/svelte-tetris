@@ -1,27 +1,14 @@
-*Looking for a shareable component template? Go here --> [sveltejs/component-template](https://github.com/sveltejs/component-template)*
+# Svelte Tetris
 
----
-
-# svelte app
-
-This is a project template for [Svelte](https://svelte.dev) apps. It lives at https://github.com/sveltejs/template.
-
-To create a new project based on this template using [degit](https://github.com/Rich-Harris/degit):
-
-```bash
-npx degit sveltejs/template svelte-app
-cd svelte-app
-```
-
-*Note that you will need to have [Node.js](https://nodejs.org) installed.*
-
+This is a very basic Tetris game made in the Svelte framework.
 
 ## Get started
 
 Install the dependencies...
 
 ```bash
-cd svelte-app
+git clone https://github.com/roeeyn/SvelteTetris.git
+cd SvelteTetris
 npm install
 ```
 
@@ -31,10 +18,7 @@ npm install
 npm run dev
 ```
 
-Navigate to [localhost:5000](http://localhost:5000). You should see your app running. Edit a component file in `src`, save it, and reload the page to see your changes.
-
-By default, the server will only respond to requests from localhost. To allow connections from other computers, edit the `sirv` commands in package.json to include the option `--host 0.0.0.0`.
-
+Navigate to [localhost:5000](http://localhost:5000). You should see the app running. Press **start** and start playing around.
 
 ## Building and running in production mode
 
@@ -44,50 +28,17 @@ To create an optimised version of the app:
 npm run build
 ```
 
-You can run the newly built app with `npm run start`. This uses [sirv](https://github.com/lukeed/sirv), which is included in your package.json's `dependencies` so that the app will work when you deploy to platforms like [Heroku](https://heroku.com).
+## Deploying to the Web
 
-
-## Single-page app mode
-
-By default, sirv will only respond to requests that match files in `public`. This is to maximise compatibility with static fileservers, allowing you to deploy your app anywhere.
-
-If you're building a single-page app (SPA) with multiple routes, sirv needs to be able to respond to requests for *any* path. You can make it so by editing the `"start"` command in package.json:
-
-```js
-"start": "sirv public --single"
-```
-
-
-## Deploying to the web
-
-### With [now](https://zeit.co/now)
-
-Install `now` if you haven't already:
+I've automated this repo to build and deploy automatically to [Firebase](https://firebase.google.com/?hl=es) using GitHub Actions. For achieving that you need to create a project inside Firebas Console and getting Firebase Token by executing:
 
 ```bash
-npm install -g now
+# optional deploy automation
+firebase login:ci
 ```
 
-Then, from within your project folder:
+## Justification for the project
 
-```bash
-cd public
-now deploy --name my-project
-```
+I advanced to the second stage in the [MLH Fellowship](https://fellowship.mlh.io/) application, and I was asked to upload a significant project where I showed my skils. As most of my best projects are private I decided to create this game, in which I **designed, developed, automate and deploy** a web app.
 
-As an alternative, use the [Now desktop client](https://zeit.co/download) and simply drag the unzipped project folder to the taskbar icon.
-
-### With [surge](https://surge.sh/)
-
-Install `surge` if you haven't already:
-
-```bash
-npm install -g surge
-```
-
-Then, from within your project folder:
-
-```bash
-npm run build
-surge public my-project.surge.sh
-```
+I hope this demostrate that I'm ready for a bigger project 🔥.
