@@ -1,6 +1,49 @@
 <script>
   import Game from "./Game.svelte";
   import { destroyedLines, hasGameEnded } from "../mainStore.js";
+  import {
+    DOWN_KEY_CODE,
+    UP_KEY_CODE,
+    RIGHT_KEY_CODE,
+    LEFT_KEY_CODE,
+    ENTER_KEY_CODE,
+    REPEAT_INTERVAL,
+  } from "../const.js";
+
+  let game;
+  let repeatInterval;
+
+
+  // Pass the control event down to the game
+  function control(event) {
+    if (game.control(event)) {
+      // The event was handled by the game
+      event.preventDefault();
+    }
+  }
+
+  function pointerDown({ keyCode }) {
+    return () => {
+      // Handle the click immediately
+      buttonClick({ keyCode })();
+      // And start repeating it on interval
+      repeatInterval = setInterval(
+        buttonClick({ keyCode }),
+        REPEAT_INTERVAL,
+      );
+    }
+  }
+
+  function pointerUp() {
+    clearInterval(repeatInterval);
+  }
+
+  function buttonClick({ keyCode }) {
+    return () => {
+      game.control({ keyCode });
+    }
+  }
+
 </script>
 
 <style>
@@ -79,7 +122,42 @@
       0 65%
     );
   }
-
+  .left-controls {
+    position: relative;
+  }
+  .pad-arrow {
+    position: absolute;
+    border: 0;
+    padding: 0;
+    background: transparent;
+  }
+  .pad-arrow:active {
+    background: red;
+  }
+  .pad-arrow-top {
+    width: 30%;
+    height: 35%;
+    left: 35%;
+    top: 0;
+  }
+  .pad-arrow-left {
+    width: 35%;
+    height: 30%;
+    left: 0;
+    top: 35%;
+  }
+  .pad-arrow-right {
+    width: 35%;
+    height: 30%;
+    left: 65%;
+    top: 35%;
+  }
+  .pad-arrow-bottom {
+    width: 30%;
+    height: 35%;
+    left: 35%;
+    top: 65%;
+  }
   .right-controls {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -92,6 +170,24 @@
     width: min(40px, 5vmin);
     height: min(40px, 5vmin);
     border-radius: 50%;
+    background: linear-gradient(
+      90deg,
+      hsl(346, 68%, 64%) 0%,
+      hsl(347, 67%, 71%) 100%
+    );
+  }
+
+  .button-start {
+    transform: translate(-50%, 800%) rotate(-25deg);
+    border: 0;
+    height: 12px;
+    width: 60px;
+    background: #999;
+    border-radius: 10px;
+    box-shadow: 57px 27px #999;
+  }
+
+  .controls button:active {
     background: linear-gradient(
       90deg,
       hsl(346, 68%, 64%) 0%,
@@ -139,10 +235,12 @@
   }
 </style>
 
+<svelte:window on:keydown={control} />
+
 <div class="case">
   <div class="outer-screen">
     <div class="inner-screen">
-      <Game />
+      <Game bind:this={game} />
       <div class="score">
         <p>Lines:</p>
         <p>{$destroyedLines}</p>
@@ -153,9 +251,33 @@
     </div>
   </div>
   <div class="controls">
-    <div class="left-controls">
+    <div
+      class="left-controls"
+      on:pointerup={pointerUp}
+      on:mouseleave={pointerUp}
+      >
       <div class="direction-pad" />
+      <button
+        class="pad-arrow pad-arrow-top"
+        on:pointerdown={pointerDown({ keyCode: UP_KEY_CODE })}
+        />
+      <button
+        class="pad-arrow pad-arrow-left"
+        on:pointerdown={pointerDown({ keyCode: LEFT_KEY_CODE })}
+        />
+      <button
+        class="pad-arrow pad-arrow-right"
+        on:pointerdown={pointerDown({ keyCode: RIGHT_KEY_CODE })}
+        />
+      <button
+        class="pad-arrow pad-arrow-bottom"
+        on:pointerdown={pointerDown({ keyCode: DOWN_KEY_CODE })}
+        />
     </div>
+    <button
+      class="button-start"
+      on:click={buttonClick({ keyCode: ENTER_KEY_CODE })}
+      />
     <div class="right-controls">
       <div class="button right" />
       <div class="button left" />

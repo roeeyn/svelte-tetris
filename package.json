@@ -4,7 +4,7 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "start": "sirv public"
+    "start": "env HOST=0.0.0.0 sirv public"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "11.0.2",
