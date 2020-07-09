@@ -53,7 +53,8 @@
     currentlyPlaying.subscribe(value => (isPlaying = value)),
   ];
 
-  function control({ keyCode }) {
+  /* Returns true if game handled the event */
+  export function control({ keyCode }) {
     if (keyCode === UP_KEY_CODE && isPlaying) moveFn = rotate;
     else if (keyCode === RIGHT_KEY_CODE && isPlaying) moveFn = moveRight;
     else if (keyCode === LEFT_KEY_CODE && isPlaying) moveFn = moveLeft;
@@ -62,7 +63,8 @@
       isPlaying = true;
       const downInterval = setInterval(() => (moveFn = moveDown), intervalTime);
       intervalFn.update(() => downInterval);
-    }
+    } else return false;
+    return true;
   }
 
   const draw = ({ shape }) =>
@@ -174,7 +176,6 @@
   }
 </style>
 
-<svelte:window on:keydown={control} />
 
 <main>
   <section>

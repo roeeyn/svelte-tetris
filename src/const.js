@@ -10,6 +10,8 @@ export const RIGHT_KEY_CODE = 39;
 export const DOWN_KEY_CODE = 40;
 export const ENTER_KEY_CODE = 13;
 
+export const REPEAT_INTERVAL = 300;
+
 // Colors
 export const EMPTY_SQUARE_COLOR = "hsl(85, 37%, 44%, 50%)";
 export const ACTUAL_SQUARE_COLOR = "hsl(85, 37%, 22%, 66%)";
