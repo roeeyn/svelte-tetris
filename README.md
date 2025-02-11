@@ -2,7 +2,7 @@
 
 This is a very basic Tetris game made in the Svelte framework.
 
-You can check it out [here](https://roeeyn-svelte-tetris.web.app/).
+You can check it out [here](https://svelte-tetris.roeeyn.dev/).
 
 ![Demo Gif](https://media.giphy.com/media/PlrphASwpX5oiARVTA/giphy.gif)
 
